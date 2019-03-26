@@ -1,18 +1,18 @@
-var Manuel = {
-    nombre: 'Manuel',
-    apellidos: 'Alférez',
-    edad: 21
+var x = 5, y = '5'
+console.log(x==5)
+
+var person = {
+    name: 'Manuel',
 }
 
-
-happyBirdDay = (persona) => {
-    return {
-        ...persona, //Una forma de copiar todo los datos del objeto que se le pasa
-        edad: persona.edad + 1 //Los datos que queremos modificar
-    }
+var person2 = {
+    ...person //Son objetos independientes
 }
 
-var OldManuel = happyBirdDay(Manuel)
+var person3 = person; //SOn objetos cuyas variables apuntan a la misma zona de memoria, si cambiamos uno cambian ambos
 
-console.log(Manuel)
-console.log(OldManuel)
+console.log(person3.name)
+console.log(person.name)
+person3.name = 'Pedro'
+console.log(person3.name)
+console.log(person.name)

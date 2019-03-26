@@ -1,7 +1,13 @@
 var nombre = 'Manuel', apellidos = 'Alférez Ruiz'
 
-var edad = 28;
+var nombreEnMayusculas = nombre.toUpperCase(nombre)
+var apellidosEnMinuscula = apellidos.toLowerCase(apellidos)
 
-console.log('Hola ' + nombre + ' ' + apellidos)
+var primeraLetraNombre = nombre.charAt(0)
+var str = nombre.substr(1, 2) //Nos saca una sub string (posición inicial, longitud)
+var longitudNombre = nombre.length
 
-console.log('Edad ' + edad + ' años')
+//Reto: mostrar la última letra del apellido 
+var reto = apellidos.charAt(apellidos.length - 1)
+
+console.log(reto)

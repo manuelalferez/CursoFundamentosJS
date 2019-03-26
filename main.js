@@ -1,9 +1,9 @@
-var nombre = 'Manuel', edad = 21
+var nombre = 'Manuel'
 
-function imprimirEdad(nombre, edad){
-    console.log(`${nombre} tiene ${edad} años.`)
+nombreUpper = (nombre) =>{
+   // windows.nombre De esta forma de podría acceder a la variable global
+    nombre = nombre.toUpperCase();
+    console.log(nombre)
 }
 
-imprimirEdad(nombre, edad)
-imprimirEdad('Pedro', 17)
-imprimirEdad('Pedro')
+nombreUpper(nombre)

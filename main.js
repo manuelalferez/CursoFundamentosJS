@@ -1,21 +1,23 @@
 var person = {
     name: 'Manuel',
-    age: '21'
+    age: 21
 }
 
-/**
- * Función que detecta si es mayor de edad dependiendo del tipo de dato que sea edad y lanza un mensaje con la respuesta
+const MAYORIA_EDAD = 18;
+
+/* esMayorEdad = ({ age }) => {
+    return age > MAYORIA_EDAD;
+}
  */
-esMayorEdad = ({ age }) => {
-    if (typeof (age) === 'string') {
-        if (parseInt(age) > 18) return 'Es mayor de edad'
-        else return 'No es mayor de edad'
-    } else if (typeof (age) === 'number') {
-        if (age > 18) return 'Es mayor de edad'
-        else return 'No es mayor de edad'
-    } else {
-        console.log("Edad en formato incorrecto.")
-    }
+
+// Si lo único que hace la función es retornar un valor se puede eliminar el return y los corchetes
+esMayorEdad = ({ age }) =>   age > MAYORIA_EDAD
+
+
+imprimirMayorEdad = (person) => {
+    console.log(`${person.name} es ${esMayorEdad(person) ? 'mayor' : 'menor'} de edad`)
 }
 
 console.log(esMayorEdad(person))
+
+console.log(imprimirMayorEdad(person))

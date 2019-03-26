@@ -1,9 +1,18 @@
-var nombre = 'Manuel'
-
-nombreUpper = (nombre) =>{
-   // windows.nombre De esta forma de podría acceder a la variable global
-    nombre = nombre.toUpperCase();
-    console.log(nombre)
+var objManuel = {
+    nombre: 'Manuel',
+    apellidos: 'Alférez',
+    edad: 21
 }
 
-nombreUpper(nombre)
+var objPedro = {
+    nombre: 'Pedro',
+    apellidos: 'Alférez',
+    edad: 17
+}
+
+nombreUpper = ({ nombre }) => {
+    console.log(nombre.toUpperCase())
+}
+
+nombreUpper(objManuel)
+nombreUpper(objPedro)

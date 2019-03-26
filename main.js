@@ -14,5 +14,14 @@ nombreUpper = ({ nombre }) => {
     console.log(nombre.toUpperCase())
 }
 
+saludo = (persona) => {
+    const { nombre } = persona;
+    const { edad } = persona;
+    console.log(`Hola ${nombre}, tengo ${edad} años`)
+    /*     console.log('Hola ' + nombre + ',tengo ' + edad + ' años') */
+}
+
 nombreUpper(objManuel)
 nombreUpper(objPedro)
+
+saludo(objManuel)

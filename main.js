@@ -1,18 +1,21 @@
-var x = 5, y = '5'
-console.log(x==5)
-
 var person = {
     name: 'Manuel',
+    age: '21'
 }
 
-var person2 = {
-    ...person //Son objetos independientes
+/**
+ * Función que detecta si es mayor de edad dependiendo del tipo de dato que sea edad y lanza un mensaje con la respuesta
+ */
+esMayorEdad = ({ age }) => {
+    if (typeof (age) === 'string') {
+        if (parseInt(age) > 18) return 'Es mayor de edad'
+        else return 'No es mayor de edad'
+    } else if (typeof (age) === 'number') {
+        if (age > 18) return 'Es mayor de edad'
+        else return 'No es mayor de edad'
+    } else {
+        console.log("Edad en formato incorrecto.")
+    }
 }
 
-var person3 = person; //SOn objetos cuyas variables apuntan a la misma zona de memoria, si cambiamos uno cambian ambos
-
-console.log(person3.name)
-console.log(person.name)
-person3.name = 'Pedro'
-console.log(person3.name)
-console.log(person.name)
+console.log(esMayorEdad(person))

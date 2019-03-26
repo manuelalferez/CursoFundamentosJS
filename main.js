@@ -1,27 +1,18 @@
-var objManuel = {
+var Manuel = {
     nombre: 'Manuel',
     apellidos: 'Alférez',
     edad: 21
 }
 
-var objPedro = {
-    nombre: 'Pedro',
-    apellidos: 'Alférez',
-    edad: 17
+
+happyBirdDay = (persona) => {
+    return {
+        ...persona, //Una forma de copiar todo los datos del objeto que se le pasa
+        edad: persona.edad + 1 //Los datos que queremos modificar
+    }
 }
 
-nombreUpper = ({ nombre }) => {
-    console.log(nombre.toUpperCase())
-}
+var OldManuel = happyBirdDay(Manuel)
 
-saludo = (persona) => {
-    const { nombre } = persona;
-    const { edad } = persona;
-    console.log(`Hola ${nombre}, tengo ${edad} años`)
-    /*     console.log('Hola ' + nombre + ',tengo ' + edad + ' años') */
-}
-
-nombreUpper(objManuel)
-nombreUpper(objPedro)
-
-saludo(objManuel)
+console.log(Manuel)
+console.log(OldManuel)

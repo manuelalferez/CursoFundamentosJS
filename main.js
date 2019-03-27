@@ -1,23 +1,30 @@
 var person = {
     name: 'Manuel',
-    age: 21
+    age: 21,
+    weight: 63
 }
 
-const MAYORIA_EDAD = 18;
+const DIAS_ANIO = 365
+const DIF_KILOS = 0.2;
 
-/* esMayorEdad = ({ age }) => {
-    return age > MAYORIA_EDAD;
-}
- */
+console.log(`A principios de año ${person.name} pesa ${person.weight}kg`)
 
-// Si lo único que hace la función es retornar un valor se puede eliminar el return y los corchetes
-esMayorEdad = ({ age }) =>   age > MAYORIA_EDAD
-
-
-imprimirMayorEdad = (person) => {
-    console.log(`${person.name} es ${esMayorEdad(person) ? 'mayor' : 'menor'} de edad`)
+subePeso = (person) =>{
+    person.weight += DIF_KILOS;
 }
 
-console.log(esMayorEdad(person))
+bajaPeso = (person) =>{
+    person.weight -= DIF_KILOS;
+}
 
-console.log(imprimirMayorEdad(person))
+for (var i = 1; i <= DIAS_ANIO; i++) {
+    var random = Math.random()
+
+    if (random < 0.25) {
+        subePeso(person)
+    } else if (random < 0.5) {
+        bajaPeso(person)
+    }
+}
+
+console.log(`A finales de año ${person.name} pesa ${person.weight.toFixed(2)}kg`)

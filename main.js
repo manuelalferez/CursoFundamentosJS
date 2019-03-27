@@ -1,16 +1,42 @@
-var hijos = prompt("¿Cuántos hijos tienes?")
+var sacha = {
+    nombre: 'Sacha',
+    apellido: 'Lifszyc',
+    altura: 1.72
+}
 
-switch (hijos) {
-    case '0':
-        console.log("Cero está bien. Ya llegará")
-        break
-    case '1':
-        console.log("Uno, dos, tres pollito inglés")
-        break
-    case '2':
-        console.log("Una pareja")
-        break
-    default:
-        console.log("No entiendo")
-        break
+var alan = {
+    nombre: 'Alan',
+    apellido: 'Perez',
+    altura: 1.86
+}
+
+var martin = {
+    nombre: 'Martin',
+    apellido: 'Gomez',
+    altura: 1.85
+}
+
+var dario = {
+    nombre: 'Dario',
+    apellido: 'Juarez',
+    altura: 1.71
+}
+
+var vicky = {
+    nombre: 'Vicky',
+    apellido: 'Zapata',
+    altura: 1.56
+}
+
+var paula = {
+    nombre: 'Paula',
+    apellido: 'Barros',
+    altura: 1.76
+}
+
+var personas = [sacha, alan, martin, dario, vicky, paula] // Array
+
+for (var i = 0; i < personas.length; i++){
+    var persona = personas[i]
+    console.log(`${persona.nombre} mide ${persona.altura}mts`)
 }

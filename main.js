@@ -1,30 +1,10 @@
-var person = {
-    name: 'Manuel',
-    age: 21,
-    weight: 63
-}
+var cont = 0;
 
-const DIAS_ANIO = 365
-const DIF_KILOS = 0.2;
+llueve = () => Math.random() < 0.25
 
-console.log(`A principios de año ${person.name} pesa ${person.weight}kg`)
+do{
+    cont++;
+}while(!llueve())
 
-subePeso = (person) =>{
-    person.weight += DIF_KILOS;
-}
-
-bajaPeso = (person) =>{
-    person.weight -= DIF_KILOS;
-}
-
-for (var i = 1; i <= DIAS_ANIO; i++) {
-    var random = Math.random()
-
-    if (random < 0.25) {
-        subePeso(person)
-    } else if (random < 0.5) {
-        bajaPeso(person)
-    }
-}
-
-console.log(`A finales de año ${person.name} pesa ${person.weight.toFixed(2)}kg`)
+if(cont===1) console.log(`Fui a ver si llovia 1 vez`)
+else console.log(`Fui a ver si llovia ${cont} veces`)

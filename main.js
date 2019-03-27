@@ -36,7 +36,12 @@ var paula = {
 
 var personas = [sacha, alan, martin, dario, vicky, paula] // Array
 
-for (var i = 0; i < personas.length; i++){
-    var persona = personas[i]
-    console.log(`${persona.nombre} mide ${persona.altura}mts`)
-}
+// Para devolver un objeto se debe poner ({ objeto })
+pasarACms = persona => ({
+    ...persona,
+    altura: persona.altura * 100
+})
+
+const personasCms = personas.map(pasarACms)
+
+console.table(personasCms) // Permite verlo en forma de tabla

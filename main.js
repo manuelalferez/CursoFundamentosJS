@@ -1,10 +1,16 @@
-var cont = 0;
+var hijos = prompt("¿Cuántos hijos tienes?")
 
-llueve = () => Math.random() < 0.25
-
-do{
-    cont++;
-}while(!llueve())
-
-if(cont===1) console.log(`Fui a ver si llovia 1 vez`)
-else console.log(`Fui a ver si llovia ${cont} veces`)
+switch (hijos) {
+    case '0':
+        console.log("Cero está bien. Ya llegará")
+        break
+    case '1':
+        console.log("Uno, dos, tres pollito inglés")
+        break
+    case '2':
+        console.log("Una pareja")
+        break
+    default:
+        console.log("No entiendo")
+        break
+}

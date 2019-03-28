@@ -121,28 +121,43 @@
             constructor() {
                 this.inicializar()
                 this.secuencia()
+                this.iluminarSecuencia()
             }
             inicializar() {
                 $btnEmpezar.classList.add('hide')
-                this.nivel = 1
-                this.colores = {
-                    //$celeste = $celeste es lo mismo que lo de abajo, siempre que tengan la misma nomenclatura
-                    $celeste, 
-                    $violeta,
-                    $naranja, 
-                    $verde
-                }
+                this.nivel = 7 
+                this.colores = { $celeste, $violeta, $naranja, $verde }
             }
-             //Otra forma de crear arrays es con el contructor e indiciarle el tamaño
-             //Con fill rellenamos y es necesario para usar el map()
-             //Con floor redondeamos a la unidad lo que le pasemos y con random * 4 nos da números entre un rando [0,3]
+
             secuencia() {
                 this.secuencia = new Array(10).fill(0).map(n => Math.floor(Math.random() * 4))
             }
+
+            transformarNumeroAColor(numero) {
+                switch (numero) {
+                    case 0: return '$celeste'
+                    case 1: return '$violeta'
+                    case 2: return '$naranja'
+                    case 3: return '$verde'
+                }
+            }
+
+            iluminarSecuencia = () => {
+                for (let i = 0; i < this.nivel; i++) {
+                    const $color = this.transformarNumeroAColor(this.secuencia[i])
+                    setTimeout(() => this.iluminarColor($color), 1000 * i) 
+                }
+            }
+            iluminarColor(color) {
+                this.colores[color].classList.add('light')
+                setTimeout(() => this.apagarColor(color), 350)
+            }
+            apagarColor(color) {
+                this.colores[color].classList.remove('light')
+            }
         }
         empezarJuego = () => {
-            //Con window hacemos que la variable sea global y con var se mantiene local
-             window.juego = new Juego()
+            var juego = new Juego()
         }
     </script>
 </body>

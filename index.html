@@ -10,7 +10,9 @@
             background: #dedede;
             display: flex;
             align-items: center;
+            justify-content: center;
             height: 100vh;
+            flex-direction: column;
         }
 
         .gameboard {
@@ -104,6 +106,9 @@
 </head>
 
 <body>
+    <div id="nivel">
+        <!-- <h1 id="nivel-actual"></h1> -->
+    </div>
     <div class="gameboard">
         <div id="celeste" class="color celeste left" data-color="celeste"></div>
         <div id="violeta" class="color violeta right" data-color="violeta"></div>
@@ -111,23 +116,27 @@
         <div id="verde" class="color verde right" data-color="verde"></div>
         <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Empezar a jugar!</button>
     </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-     const $btnEmpezar = document.getElementById('btnEmpezar')
+        const $btnEmpezar = document.getElementById('btnEmpezar')
         const $celeste = document.getElementById('celeste')
         const $violeta = document.getElementById('violeta')
         const $naranja = document.getElementById('naranja')
         const $verde = document.getElementById('verde')
-        const NUM_NIVELES = 10
+        const $nivelPantalla = document.getElementById('nivel')
+        const NUM_NIVELES = 5
         class Juego {
             constructor() {
                 this.inicializar()
+                this.inicializar = this.inicializar.bind(this)
                 this.secuencia()
                 setTimeout(this.siguienteNivel(), 500)
             }
             inicializar() {
                 this.elegirColor = this.elegirColor.bind(this)
                 this.siguienteNivel = this.siguienteNivel.bind(this)
-                $btnEmpezar.classList.add('hide')
+                this.eliminarEventosClick = this.eliminarEventosClick.bind(this)
+                $btnEmpezar.classList.toggle('hide')
                 this.nivel = 1
                 this.colores = {
                     celeste: $celeste,
@@ -137,8 +146,18 @@
                 }
             }
 
+            reiniciarNivelPantalla() {
+                if ($nivelPantalla.childElementCount != 0) {
+                    const $nivelActual = document.getElementById('nivel-actual')
+                    $nivelPantalla.removeChild($nivelActual)
+                }
+            }
+
             siguienteNivel() {
                 this.subnivel = 0
+                this.reiniciarNivelPantalla()
+                const nuevoNivel = `<h1 id="nivel-actual">Nivel ${this.nivel}</h1>`
+                $nivelPantalla.innerHTML += nuevoNivel;
                 this.iluminarSecuencia()
                 this.agregarEventosClick()
             }
@@ -201,15 +220,37 @@
                         this.nivel++;
                         this.eliminarEventosClick()
                         if (this.nivel == NUM_NIVELES + 1) {
-                            //gano
+                            this.ganaJuego()
                         } else {
-                            //juego continua
-                            setTimeout(this.siguienteNivel, 1500)
+                            setTimeout(() => {
+                                if (this.nivel > 1) {
+                                    swal("Nivel superado:", `Pasas al nivel ${this.nivel}!`)
+                                        .then(this.siguienteNivel)
+                                }
+
+                            }, 500) 
                         }
                     }
                 } else {
-                    //perdio
+                    this.pierdeJuego()
                 }
+            }
+
+            ganaJuego() {
+                setTimeout(() => {
+                    swal("Ganaste", "Enhorabuena!", "success")
+                        .then(this.inicializar)
+                }, 600)
+            }
+
+            pierdeJuego() {
+                setTimeout(() => {
+                    swal("Perdiste", "No te rindas!", "error")
+                        .then(() => {
+                            this.eliminarEventosClick()
+                            this.inicializar()
+                        })
+                }, 600)
             }
         }
         empezarJuego = () => {

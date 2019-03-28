@@ -3,259 +3,28 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Simon Dice</title>
-    <style>
-        body {
-            margin: 0;
-            background: #dedede;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            flex-direction: column;
-        }
-
-        .gameboard {
-            height: 100vh;
-            width: 100vh;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto;
-            max-height: 60vh;
-            max-width: 60vh;
-            border-bottom: 4px solid #c4c6c7;
-        }
-
-        .color {
-            width: 50%;
-            height: 50%;
-            display: inline-block;
-        }
-
-        .left {
-            float: left;
-        }
-
-        .right {
-            float: left;
-        }
-
-        .celeste {
-            background: #22a6b3;
-        }
-
-        .celeste.light {
-            background: #7ed6df;
-        }
-
-        .violeta {
-            background: #be2edd;
-        }
-
-        .violeta.light {
-            background: #e056fd;
-        }
-
-        .naranja {
-            background: #f0932b;
-        }
-
-        .naranja.light {
-            background: #ffbe76;
-        }
-
-        .verde {
-            background: #6ab04c;
-        }
-
-        .verde.light {
-            background: #badc58;
-        }
-
-        .btn-start {
-            cursor: pointer;
-            width: 420px;
-            height: 100px;
-            background: #ecf0f1;
-            color: #2c3e50;
-            border: none;
-            border-bottom: 4px solid #c4c6c7;
-            border-radius: 8px;
-            font-size: 3em;
-            position: absolute;
-            top: calc(50% - 50px);
-            left: calc(50% - 210px);
-            transition: .5s;
-            outline: none;
-        }
-
-        .btn-start:hover {
-            color: #ecf0f1;
-            background: #2c3e50;
-            border-bottom: 4px solid #1f3346;
-        }
-
-        .btn-start:active {
-            transform: scale(.95);
-        }
-
-        .hide {
-            display: none;
-        }
-    </style>
+    <title>CURSO JS</title>
 </head>
 
 <body>
-    <div id="nivel">
-        <!-- <h1 id="nivel-actual"></h1> -->
-    </div>
-    <div class="gameboard">
-        <div id="celeste" class="color celeste left" data-color="celeste"></div>
-        <div id="violeta" class="color violeta right" data-color="violeta"></div>
-        <div id="naranja" class="color naranja left" data-color="naranja"></div>
-        <div id="verde" class="color verde right" data-color="verde"></div>
-        <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Empezar a jugar!</button>
-    </div>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-        const $btnEmpezar = document.getElementById('btnEmpezar')
-        const $celeste = document.getElementById('celeste')
-        const $violeta = document.getElementById('violeta')
-        const $naranja = document.getElementById('naranja')
-        const $verde = document.getElementById('verde')
-        const $nivelPantalla = document.getElementById('nivel')
-        const NUM_NIVELES = 5
-        class Juego {
-            constructor() {
-                this.inicializar()
-                this.inicializar = this.inicializar.bind(this)
-                this.secuencia()
-                setTimeout(this.siguienteNivel(), 500)
-            }
-            inicializar() {
-                this.elegirColor = this.elegirColor.bind(this)
-                this.siguienteNivel = this.siguienteNivel.bind(this)
-                this.eliminarEventosClick = this.eliminarEventosClick.bind(this)
-                $btnEmpezar.classList.toggle('hide')
-                this.nivel = 1
-                this.colores = {
-                    celeste: $celeste,
-                    violeta: $violeta,
-                    naranja: $naranja,
-                    verde: $verde
-                }
-            }
-
-            reiniciarNivelPantalla() {
-                if ($nivelPantalla.childElementCount != 0) {
-                    const $nivelActual = document.getElementById('nivel-actual')
-                    $nivelPantalla.removeChild($nivelActual)
-                }
-            }
-
-            siguienteNivel() {
-                this.subnivel = 0
-                this.reiniciarNivelPantalla()
-                const nuevoNivel = `<h1 id="nivel-actual">Nivel ${this.nivel}</h1>`
-                $nivelPantalla.innerHTML += nuevoNivel;
-                this.iluminarSecuencia()
-                this.agregarEventosClick()
-            }
-
-            secuencia() {
-                this.secuencia = new Array(NUM_NIVELES).fill(0).map(n => Math.floor(Math.random() * 4))
-            }
-
-            transformarNumeroAColor(numero) {
-                switch (numero) {
-                    case 0: return 'celeste'
-                    case 1: return 'violeta'
-                    case 2: return 'naranja'
-                    case 3: return 'verde'
-                }
-            }
-
-            iluminarSecuencia = () => {
-                for (let i = 0; i < this.nivel; i++) {
-                    const $color = this.transformarNumeroAColor(this.secuencia[i])
-                    setTimeout(() => this.iluminarColor($color), 1000 * i)
-                }
-            }
-            iluminarColor(color) {
-                this.colores[color].classList.add('light')
-                setTimeout(() => this.apagarColor(color), 350)
-            }
-            apagarColor(color) {
-                this.colores[color].classList.remove('light')
-            }
-
-
-            agregarEventosClick() {
-                for (const color in this.colores)
-                    this.colores[color].addEventListener('click', this.elegirColor)
-            }
-
-            eliminarEventosClick() {
-                for (const color in this.colores)
-                    this.colores[color].removeEventListener('click', this.elegirColor)
-            }
-
-            transformarColorANumero(color) {
-                switch (color) {
-                    case 'celeste': return 0
-                    case 'violeta': return 1
-                    case 'naranja': return 2
-                    case 'verde': return 3
-                }
-            }
-
-            elegirColor(event) {
-                const nombreColor = event.target.dataset.color;
-                const numeroColor = this.transformarColorANumero(nombreColor)
-
-                this.iluminarColor(nombreColor)
-                if (numeroColor === this.secuencia[this.subnivel]) {
-                    this.subnivel++;
-                    if (this.subnivel == this.nivel) {
-                        this.nivel++;
-                        this.eliminarEventosClick()
-                        if (this.nivel == NUM_NIVELES + 1) {
-                            this.ganaJuego()
-                        } else {
-                            setTimeout(() => {
-                                if (this.nivel > 1) {
-                                    swal("Nivel superado:", `Pasas al nivel ${this.nivel}!`)
-                                        .then(this.siguienteNivel)
-                                }
-
-                            }, 500) 
-                        }
-                    }
-                } else {
-                    this.pierdeJuego()
-                }
-            }
-
-            ganaJuego() {
-                setTimeout(() => {
-                    swal("Ganaste", "Enhorabuena!", "success")
-                        .then(this.inicializar)
-                }, 600)
-            }
-
-            pierdeJuego() {
-                setTimeout(() => {
-                    swal("Perdiste", "No te rindas!", "error")
-                        .then(() => {
-                            this.eliminarEventosClick()
-                            this.inicializar()
-                        })
-                }, 600)
-            }
+        diferenciaEntreFechas = (fecha1, fecha2) => {
+            let unDia_ms = 1000 * 60 * 60 * 24
+            return Math.abs(fecha2 - fecha1) / unDia_ms
         }
-        empezarJuego = () => {
-            window.juego = new Juego()
+
+        const cumple = new Date(1997, 4, 1)
+        const hoy = new Date()
+
+        var date = new Date()
+
+        var dateNow = {
+            anio: date.getFullYear(),
+            mes: date.getMonth(),
+            dia: date.getDay()
         }
+
+        console.log(`Hoy es: ${dateNow.dia}-${dateNow.mes}-${dateNow.anio}`)
     </script>
 </body>
 

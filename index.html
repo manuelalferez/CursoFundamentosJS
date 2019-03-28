@@ -8,19 +8,16 @@
 
 <body>
     <script>
-        factorizacion = (n) => {
-            if (!this.cache) { //Si no existe la caché la creamos
-                this.cache = {}
+        crearSaludo = (mensaje) => {
+            return (nombre) => {
+                console.log(`Hola ${nombre} qué pasa ${mensaje}`)
             }
-            if (this.cache[n]) //Si ya tenemos almacenados el valor solicitado lo devolvemos
-                return this.cache[n]
-            if (n == 0 || n == 1) {
-                this.cache[n] = 1
-                return this.cache[n]
-            }
-            this.cache[n] = n * factorizacion(n - 1)
-            return this.cache[n]
         }
+        var manuel = crearSaludo('españa')
+        var lucia = crearSaludo('inglaterra')
+
+        manuel('Manuel')
+        lucia('Lucía')
     </script>
 </body>
 

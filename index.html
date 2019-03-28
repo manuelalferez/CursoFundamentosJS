@@ -8,16 +8,26 @@
 
 <body>
     <script>
-        crearSaludo = (mensaje) => {
-            return (nombre) => {
-                console.log(`Hola ${nombre} qué pasa ${mensaje}`)
-            }
+        const manuel = {
+            nombre: 'Manuel',
+            apellido: 'Alférez'
         }
-        var manuel = crearSaludo('españa')
-        var lucia = crearSaludo('inglaterra')
 
-        manuel('Manuel')
-        lucia('Lucía')
+        //El bind sólo funciona si se define la función tradicionalmente, con arrow function no
+        function saludo (mensaje = 'Hola')  {
+            /* console.log(`${mensaje}, ¿qué tal estás ${this.nombre}?`) */
+            console.log(`${mensaje}, soy ${this.nombre}`)
+        }
+
+        const saludoManuel = saludo.bind(manuel)
+        saludoManuel('ho ho!')
+
+        setTimeout(saludo.bind(manuel, 'Hey hey!'), 2000) //setTimeOut se le pasa una función que lleva asignada
+        // manuel y se le pasa despues el mensaje
+
+        saludo.call(manuel, 'aaay!') //Realiza la llamada directamente
+        saludo.apply(manuel, ['hey']) //Realiza la llamada, pero tiene una forma especial de pasarle el mensaje
+        
     </script>
 </body>
 

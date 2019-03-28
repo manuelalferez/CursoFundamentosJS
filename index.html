@@ -121,11 +121,14 @@
             constructor() {
                 this.inicializar()
                 this.secuencia()
-                this.iluminarSecuencia()
+                this.siguienteNivel()
             }
             inicializar() {
+                // Asignamos el this el juego al this de elegir color ya que si no fuese así, dentro del método
+                // el this apuntaría a color específico
+                this.elegirColor= this.elegirColor.bind(this)
                 $btnEmpezar.classList.add('hide')
-                this.nivel = 7 
+                this.nivel = 1
                 this.colores = { $celeste, $violeta, $naranja, $verde }
             }
 
@@ -145,7 +148,7 @@
             iluminarSecuencia = () => {
                 for (let i = 0; i < this.nivel; i++) {
                     const $color = this.transformarNumeroAColor(this.secuencia[i])
-                    setTimeout(() => this.iluminarColor($color), 1000 * i) 
+                    setTimeout(() => this.iluminarColor($color), 1000 * i)
                 }
             }
             iluminarColor(color) {
@@ -155,9 +158,22 @@
             apagarColor(color) {
                 this.colores[color].classList.remove('light')
             }
+            siguienteNivel() {
+                this.iluminarSecuencia()
+                this.agregarEventosClick()
+            }
+
+            agregarEventosClick() {
+                for (const color in this.colores)
+                    this.colores[color].addEventListener('click', this.elegirColor)
+            }
+
+            elegirColor(event) {
+                console.log(this)
+            }
         }
         empezarJuego = () => {
-            var juego = new Juego()
+            window.juego = new Juego()
         }
     </script>
 </body>

@@ -120,13 +120,29 @@
         class Juego {
             constructor() {
                 this.inicializar()
+                this.secuencia()
             }
             inicializar() {
                 $btnEmpezar.classList.add('hide')
+                this.nivel = 1
+                this.colores = {
+                    //$celeste = $celeste es lo mismo que lo de abajo, siempre que tengan la misma nomenclatura
+                    $celeste, 
+                    $violeta,
+                    $naranja, 
+                    $verde
+                }
+            }
+             //Otra forma de crear arrays es con el contructor e indiciarle el tamaño
+             //Con fill rellenamos y es necesario para usar el map()
+             //Con floor redondeamos a la unidad lo que le pasemos y con random * 4 nos da números entre un rando [0,3]
+            secuencia() {
+                this.secuencia = new Array(10).fill(0).map(n => Math.floor(Math.random() * 4))
             }
         }
         empezarJuego = () => {
-            var juego = new Juego()
+            //Con window hacemos que la variable sea global y con var se mantiene local
+             window.juego = new Juego()
         }
     </script>
 </body>

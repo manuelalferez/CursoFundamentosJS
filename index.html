@@ -8,10 +8,18 @@
 
 <body>
     <script>
-        division = (dividiendo, divisor) => {
-            if (dividiendo < divisor)
-                return 0
-            return 1 + division(dividiendo - divisor, divisor)
+        factorizacion = (n) => {
+            if (!this.cache) { //Si no existe la caché la creamos
+                this.cache = {}
+            }
+            if (this.cache[n]) //Si ya tenemos almacenados el valor solicitado lo devolvemos
+                return this.cache[n]
+            if (n == 0 || n == 1) {
+                this.cache[n] = 1
+                return this.cache[n]
+            }
+            this.cache[n] = n * factorizacion(n - 1)
+            return this.cache[n]
         }
     </script>
 </body>
